@@ -78,7 +78,7 @@ public class ReusablePoolTest {
 		reusables.add(rp.acquireReusable());
 		Assert.assertThat(reusables.get(0), instanceOf(Reusable.class));
 	}
-	
+
 	/**
 	 * Prueba si el método
 	 * {@link ubu.gii.dass.c01.ReusablePool#acquireReusable()}. devuelve dos
@@ -92,6 +92,20 @@ public class ReusablePoolTest {
 		reusables.add(rp.acquireReusable());
 		Assert.assertThat(reusables.get(0), instanceOf(Reusable.class));
 		Assert.assertThat(reusables.get(1), instanceOf(Reusable.class));
+	}
+
+	/**
+	 * Prueba si el método
+	 * {@link ubu.gii.dass.c01.ReusablePool#acquireReusable()} lanza excepción
+	 * al intentar obtener un tercer Reusable.
+	 * 
+	 * @throws NotFreeInstanceException
+	 */
+	@Test(expected = NotFreeInstanceException.class)
+	public void testAcquireThreeReusable() throws NotFreeInstanceException {
+		reusables.add(rp.acquireReusable());
+		reusables.add(rp.acquireReusable());
+		reusables.add(rp.acquireReusable());
 	}
 
 	/**
