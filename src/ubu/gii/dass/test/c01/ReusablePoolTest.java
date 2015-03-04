@@ -140,5 +140,22 @@ public class ReusablePoolTest {
 		rp.releaseReusable(r);
 		rp.releaseReusable(r);
 	}
+	
+	/**
+	 * Prueba si el método
+	 * {@link ubu.gii.dass.c01.ReusablePool#releaseReusable()} 
+	 * añade correctamente dos objetos Reusable diferentes.
+	 * 
+	 * @throws DuplicatedInstanceException 
+	 * @throws NotFreeInstanceException.
+	 */
+	@Test
+	public void testReleaseTwoReusable()
+			throws NotFreeInstanceException, DuplicatedInstanceException {
+		Reusable r1 = rp.acquireReusable();
+		Reusable r2 = rp.acquireReusable();
+		rp.releaseReusable(r1);
+		rp.releaseReusable(r2);
+	}
 
 }
