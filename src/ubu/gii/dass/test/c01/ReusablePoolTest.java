@@ -59,7 +59,7 @@ public class ReusablePoolTest {
 
 	/**
 	 * Prueba si el método {@link ubu.gii.dass.c01.ReusablePool#getInstance()}
-	 * implementa correctamente el patrón Singletón.
+	 * implementa correctamente el patrón Singleton.
 	 */
 	@Test
 	public void testGetInstance_singleton() {
@@ -71,7 +71,7 @@ public class ReusablePoolTest {
 	 * {@link ubu.gii.dass.c01.ReusablePool#acquireReusable()}. devuelve un
 	 * objeto de tipo Reusable.
 	 * 
-	 * @throws NotFreeInstanceException
+	 * @throws NotFreeInstanceException.
 	 */
 	@Test
 	public void testAcquireOneReusable() throws NotFreeInstanceException {
@@ -84,7 +84,7 @@ public class ReusablePoolTest {
 	 * {@link ubu.gii.dass.c01.ReusablePool#acquireReusable()}. devuelve dos
 	 * objetos de tipo Reusable.
 	 * 
-	 * @throws NotFreeInstanceException
+	 * @throws NotFreeInstanceException.
 	 */
 	@Test
 	public void testAcquireTwoReusable() throws NotFreeInstanceException {
@@ -99,7 +99,7 @@ public class ReusablePoolTest {
 	 * {@link ubu.gii.dass.c01.ReusablePool#acquireReusable()} lanza excepción
 	 * al intentar obtener un tercer Reusable.
 	 * 
-	 * @throws NotFreeInstanceException
+	 * @throws NotFreeInstanceException.
 	 */
 	@Test(expected = NotFreeInstanceException.class)
 	public void testAcquireThreeReusable() throws NotFreeInstanceException {
@@ -110,18 +110,35 @@ public class ReusablePoolTest {
 
 	/**
 	 * Prueba si el método
-	 * {@link ubu.gii.dass.c01.ReusablePool#releaseReusable()}
-	 * añade un Reusable al pool.
+	 * {@link ubu.gii.dass.c01.ReusablePool#releaseReusable()} añade un Reusable
+	 * al pool.
 	 * 
-	 * @throws NotFreeInstanceException
-	 * @throws DuplicatedInstanceException 
+	 * @throws NotFreeInstanceException.
+	 * @throws DuplicatedInstanceException.
 	 */
 	@Test
-	public void testReleaseOneReusable() throws NotFreeInstanceException, DuplicatedInstanceException{
+	public void testReleaseOneReusable() throws NotFreeInstanceException,
+			DuplicatedInstanceException {
 		reusables.add(rp.acquireReusable());
 		reusables.add(rp.acquireReusable());
 		rp.releaseReusable(reusables.get(0));
 		Assert.assertEquals(reusables.get(0), rp.acquireReusable());
+	}
+
+	/**
+	 * Prueba si el método
+	 * {@link ubu.gii.dass.c01.ReusablePool#releaseReusable()} lanza
+	 * DuplicatedInstanceException al usarlo dos veces con el mismo Reusable.
+	 * 
+	 * @throws NotFreeInstanceException.
+	 * @throws DuplicatedInstanceException.
+	 */
+	@Test(expected = DuplicatedInstanceException.class)
+	public void testReleaseOneReusableTwoTimes()
+			throws NotFreeInstanceException, DuplicatedInstanceException {
+		Reusable r = rp.acquireReusable();
+		rp.releaseReusable(r);
+		rp.releaseReusable(r);
 	}
 
 }
