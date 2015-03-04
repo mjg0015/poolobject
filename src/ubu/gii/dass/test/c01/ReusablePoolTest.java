@@ -6,11 +6,15 @@ package ubu.gii.dass.test.c01;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 
+import java.util.Vector;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import ubu.gii.dass.c01.NotFreeInstanceException;
+import ubu.gii.dass.c01.Reusable;
 import ubu.gii.dass.c01.ReusablePool;
 
 /**
@@ -23,6 +27,7 @@ import ubu.gii.dass.c01.ReusablePool;
 public class ReusablePoolTest {
 
 	private ReusablePool rp;
+	private Vector<Reusable> reusables;
 
 	/**
 	 * @throws java.lang.Exception
@@ -30,6 +35,7 @@ public class ReusablePoolTest {
 	@Before
 	public void setUp() throws Exception {
 		rp = ReusablePool.getInstance();
+		reusables = new Vector<Reusable>(2);
 	}
 
 	/**
@@ -37,6 +43,9 @@ public class ReusablePoolTest {
 	 */
 	@After
 	public void tearDown() throws Exception {
+		for (Reusable r : reusables) {
+			rp.releaseReusable(r);
+		}
 	}
 
 	/**
@@ -47,7 +56,7 @@ public class ReusablePoolTest {
 	public void testGetInstance_inicial() {
 		Assert.assertThat(rp, instanceOf(ReusablePool.class));
 	}
-	
+
 	/**
 	 * Prueba si el método {@link ubu.gii.dass.c01.ReusablePool#getInstance()}
 	 * implementa correctamente el patrón Singletón.
@@ -58,11 +67,16 @@ public class ReusablePoolTest {
 	}
 
 	/**
-	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#acquireReusable()}.
+	 * Prueba si el método
+	 * {@link ubu.gii.dass.c01.ReusablePool#acquireReusable()}. devuelve un
+	 * objeto de tipo Reusable.
+	 * 
+	 * @throws NotFreeInstanceException
 	 */
 	@Test
-	public void testAcquireReusable() {
-		fail("Not yet implemented");
+	public void testAcquireOneReusable() throws NotFreeInstanceException {
+		reusables.add(rp.acquireReusable());
+		Assert.assertThat(reusables.get(0), instanceOf(Reusable.class));
 	}
 
 	/**
