@@ -47,6 +47,15 @@ public class ReusablePoolTest {
 	public void testGetInstance_inicial() {
 		Assert.assertThat(rp, instanceOf(ReusablePool.class));
 	}
+	
+	/**
+	 * Prueba si el método {@link ubu.gii.dass.c01.ReusablePool#getInstance()}
+	 * implementa correctamente el patrón Singletón.
+	 */
+	@Test
+	public void testGetInstance_singleton() {
+		Assert.assertEquals(rp, ReusablePool.getInstance());
+	}
 
 	/**
 	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#acquireReusable()}.
