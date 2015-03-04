@@ -4,22 +4,32 @@
 package ubu.gii.dass.test.c01;
 
 import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import ubu.gii.dass.c01.ReusablePool;
+
 /**
- * @author alumno
+ * Tests ReusablePool.
+ * 
+ * @author Álvaro Vázquez.
+ * @author Mario Juez.
  *
  */
 public class ReusablePoolTest {
+
+	private ReusablePool rp;
 
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
+		rp = ReusablePool.getInstance();
 	}
 
 	/**
@@ -30,11 +40,12 @@ public class ReusablePoolTest {
 	}
 
 	/**
-	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#getInstance()}.
+	 * Prueba si el método {@link ubu.gii.dass.c01.ReusablePool#getInstance()}
+	 * devuelve un objeto de tipo ReusablePool.
 	 */
 	@Test
-	public void testGetInstance() {
-		fail("Not yet implemented");
+	public void testGetInstance_inicial() {
+		Assert.assertThat(rp, instanceOf(ReusablePool.class));
 	}
 
 	/**
@@ -46,7 +57,9 @@ public class ReusablePoolTest {
 	}
 
 	/**
-	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#releaseReusable(ubu.gii.dass.c01.Reusable)}.
+	 * Test method for
+	 * {@link ubu.gii.dass.c01.ReusablePool#releaseReusable(ubu.gii.dass.c01.Reusable)}
+	 * .
 	 */
 	@Test
 	public void testReleaseReusable() {
