@@ -78,6 +78,21 @@ public class ReusablePoolTest {
 		reusables.add(rp.acquireReusable());
 		Assert.assertThat(reusables.get(0), instanceOf(Reusable.class));
 	}
+	
+	/**
+	 * Prueba si el método
+	 * {@link ubu.gii.dass.c01.ReusablePool#acquireReusable()}. devuelve dos
+	 * objetos de tipo Reusable.
+	 * 
+	 * @throws NotFreeInstanceException
+	 */
+	@Test
+	public void testAcquireTwoReusable() throws NotFreeInstanceException {
+		reusables.add(rp.acquireReusable());
+		reusables.add(rp.acquireReusable());
+		Assert.assertThat(reusables.get(0), instanceOf(Reusable.class));
+		Assert.assertThat(reusables.get(1), instanceOf(Reusable.class));
+	}
 
 	/**
 	 * Test method for
