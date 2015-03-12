@@ -156,6 +156,10 @@ public class ReusablePoolTest {
 		Reusable r2 = rp.acquireReusable();
 		rp.releaseReusable(r1);
 		rp.releaseReusable(r2);
+		reusables.add(rp.acquireReusable());
+		reusables.add(rp.acquireReusable());
+		Assert.assertEquals(r2, reusables.get(0));
+		Assert.assertEquals(r1, reusables.get(1));
 	}
 
 	/**
